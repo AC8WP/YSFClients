@@ -231,6 +231,7 @@ void CYSFReflector::run()
 						::memcpy(dst, "??????????", YSF_CALLSIGN_LENGTH);
 
 					LogMessage("Received data from %10.10s to %10.10s at %10.10s", src, dst, buffer + 4U);
+					LogDebug("Data from Gateway %s (%s:%u)", rpt->m_callsign.c_str(), ::inet_ntoa(address), port);
 				} else {
 					if (::memcmp(tag, buffer + 4U, YSF_CALLSIGN_LENGTH) == 0) {
 						bool changed = false;
@@ -245,8 +246,10 @@ void CYSFReflector::run()
 							changed = true;
 						}
 
-						if (changed)
+						if (changed) {
 							LogMessage("Received data from %10.10s to %10.10s at %10.10s", src, dst, buffer + 4U);
+							LogDebug("Data from Gateway %s (%s:%u)", rpt->m_callsign.c_str(), ::inet_ntoa(address), port);
+						}
 					}
 				}
 
